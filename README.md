@@ -30,6 +30,8 @@ services:
     container_name: hyperionng
     command: bash -c "addgroup -q --gid ${UID:-1100} hyperion &&
                     adduser -q --uid ${UID:-1100} --gid ${GID:-1100} --disabled-password --no-create-home hyperion &&
+                    mkdir -p /config &&
+                    chown ${UID:-1100}:${GID:-1100} /config &&
                     apt-get update &&
                     apt-get install -y wget gpg sudo &&
                     wget -qO /tmp/hyperion.pub.key https://apt.hyperion-project.org/hyperion.pub.key &&
@@ -46,10 +48,12 @@ services:
       - "8090:8090"
       - "8092:8092"
     volumes:
-      - hyperiong-config:/config
+      - hyperionng-config:/config
     restart: unless-stopped
-    volumes:
-      - hyperionng-data
+volumes:
+  hyperionng-config:
+    driver: local
+
 ```
 
 If you want to use different UID and GID, you can add a `.env` file in the same folder of your `docker-compose.yml` file:
