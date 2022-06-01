@@ -17,9 +17,52 @@ Sadly, the resulting image is not exaclty slim at ~500MB, because hyperion has l
 
 On the other hand, the running service does not need lots of RAM (on my system takes ~64MB without the cache).
 
-### Default configuration
+You have different options to run this image, after starting the container you can reach the web ui going either to http://youdockerhost:8090 or https://youdockerhost:8092
 
-In this configuration all the main hyperion ports are mapped on your docker host. You can reach the web ui going either to http://youdockerhost:8090 or https://youdockerhost:8092
+### Standard configuration
+
+Simply said: git clone the repo (or directly download the Dockerfile)
+
+```sh
+git clone https://github.com/psychowood/hyperion.ng-docker
+```
+docker build the local image
+```sh
+docker build -t hyperionng .
+```
+create local directory to map the volume
+```sh
+mkdir config
+```
+either start the container directly
+```sh
+docker run -d -v "$(pwd)/config:/config" --name="hyperion.ng" --network host hyperionng:latest
+```
+or use `docker compose up -d` with the following `docker-compose.yml` file (included in the repo):
+```sh
+version: '3.3'
+
+services:
+  hyperionng:
+    image: hyperionng:latest
+    container_name: hyperionng
+    volumes:
+      - ./config:/config
+    ports:
+      - "19400:19400"
+      - "19444:19444"
+      - "19445:19445"
+      - "8090:8090"
+      - "8092:8092"
+    volumes:
+      - ./config:/config
+    restart: unless-stopped
+```
+
+### Standalone configuration
+
+This configuration (found in `docker-compose.standalone.yml`) is completely built when upping the container, it runs of debian:bullseye image and installs hyperion and dependencies at first boot.
+All the main hyperion ports are mapped on your docker host.
 
 ```yaml
 version: '3.3'
@@ -53,7 +96,6 @@ services:
 volumes:
   hyperionng-config:
     driver: local
-
 ```
 
 If you want to use different UID and GID, you can add a `.env` file in the same folder of your `docker-compose.yml` file:
