@@ -36,7 +36,7 @@ mkdir config
 ```
 either start the container directly
 ```sh
-docker run -d -v "$(pwd)/config:/config" --name="hyperion.ng" --network host hyperionng:latest
+docker run -d -v "$(pwd)/config:/config" --name="hyperionng" --network host hyperionng:latest
 ```
 or use `docker compose up -d` with the following `docker-compose.yml` file (included in the repo):
 ```sh
