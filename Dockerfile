@@ -17,8 +17,8 @@ EXPOSE 8092
 
 RUN mkdir /config
 
-ENV UID=1100
-ENV GID=1100
+ENV UID=1000
+ENV GID=1000
 
 RUN groupadd -f hyperion
 RUN useradd -r -s /bin/bash -g hyperion hyperion
