@@ -10,6 +10,7 @@ RUN apt-get update && \
     echo "deb [signed-by=/usr/share/keyrings/hyperion.nightly.pub.gpg] https://nightly.apt.hyperion-project.org/ bullseye main" > /etc/apt/sources.list.d/hyperion.nightly.list.disabled && \
     apt-get update && \
     apt-get install -y hyperion && \
+    apt-get -y --purge autoremove gpg && \
     apt-get clean
 
 
