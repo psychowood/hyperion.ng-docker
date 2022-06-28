@@ -1,0 +1,8 @@
+FROM hyperionng:latest
+
+# Install hyperion from nightly repo
+
+RUN mv /etc/apt/sources.list.d/hyperion.nightly.list.disabled /etc/apt/sources.list.d/hyperion.list && \
+    apt-get update && \
+    apt-get install -y hyperion && \
+    apt-get clean
