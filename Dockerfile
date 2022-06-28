@@ -9,9 +9,23 @@ RUN apt-get update && \
     apt-get install -y hyperion && \
     apt-get clean
 
+
+# Flatbuffers Server port
 EXPOSE 19400
+
+# JSON-RPC Server Port
 EXPOSE 19444
+
+# Protocol Buffers Server port
 EXPOSE 19445
+
+# Boblight Server port
+EXPOSE 19333
+
+# Philips Hue Entertainment mode (UDP)
+EXPOSE 2100
+
+# HTTP and HTTPS Web UI default ports
 EXPOSE 8090
 EXPOSE 8092
 
