@@ -54,8 +54,6 @@ services:
       - "19445:19445"
       - "8090:8090"
       - "8092:8092"
-    volumes:
-      - ./config:/config
     restart: unless-stopped
 ```
 
