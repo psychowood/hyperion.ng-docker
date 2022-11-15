@@ -28,6 +28,7 @@ git clone https://github.com/psychowood/hyperion.ng-docker
 ```
 docker build the local image
 ```sh
+docker build -t hyperionng --no-cache .
 ```
 either start the container directly
 ```sh
