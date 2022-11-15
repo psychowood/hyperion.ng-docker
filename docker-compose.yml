@@ -5,7 +5,7 @@ services:
     image: hyperionng:latest
     container_name: hyperionng
     volumes:
-      - ./config:/config
+      - hyperionng-config:/config
     ports:
       - "19400:19400"
       - "19444:19444"
@@ -13,3 +13,5 @@ services:
       - "8090:8090"
       - "8092:8092"
     restart: unless-stopped
+volumes:
+  hyperionng-config:

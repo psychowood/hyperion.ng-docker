@@ -28,11 +28,6 @@ git clone https://github.com/psychowood/hyperion.ng-docker
 ```
 docker build the local image
 ```sh
-docker build -t hyperionng .
-```
-create local directory to map the volume
-```sh
-mkdir config
 ```
 either start the container directly
 ```sh
@@ -47,7 +42,7 @@ services:
     image: hyperionng:latest
     container_name: hyperionng
     volumes:
-      - ./config:/config
+      - hyperionng-config:/config
     ports:
       - "19400:19400"
       - "19444:19444"
@@ -55,6 +50,8 @@ services:
       - "8090:8090"
       - "8092:8092"
     restart: unless-stopped
+volumes:
+  hyperionng-config:
 ```
 
 ### Standalone configuration
@@ -93,7 +90,7 @@ services:
     restart: unless-stopped
 volumes:
   hyperionng-config:
-    driver: local
+
 ```
 
 If you want to use different UID and GID, you can add a `.env` file in the same folder of your `docker-compose.yml` file:
