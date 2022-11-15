@@ -67,10 +67,10 @@ services:
   hyperionng:
     image: debian:bullseye
     container_name: hyperionng
-    command: bash -c "addgroup -q --gid ${UID:-1100} hyperion &&
-                    adduser -q --uid ${UID:-1100} --gid ${GID:-1100} --disabled-password --no-create-home hyperion &&
+    command: bash -c "groupadd -f hyperion || true &&
+                    adduser -q --uid ${UID:-1000} --gid ${GID:-1000} --disabled-password --no-create-home hyperion || true &&
                     mkdir -p /config &&
-                    chown ${UID:-1100}:${GID:-1100} /config &&
+                    chown ${UID:-1000}:${GID:-1000} /config &&
                     apt-get update &&
                     apt-get install -y wget gpg sudo &&
                     wget -qO /tmp/hyperion.pub.key https://apt.hyperion-project.org/hyperion.pub.key &&
