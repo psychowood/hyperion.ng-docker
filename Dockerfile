@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bullseye
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
@@ -34,8 +34,6 @@ EXPOSE 2100
 EXPOSE 8090
 EXPOSE 8092
 
-RUN mkdir /config
-
 ENV UID=1000
 ENV GID=1000
 
@@ -45,6 +43,7 @@ RUN useradd -r -s /bin/bash -g hyperion hyperion
 RUN echo "#!/bin/bash" > /start.sh
 RUN echo "groupmod -g \$2 hyperion" >> /start.sh
 RUN echo "usermod -u \$1 hyperion" >> /start.sh
+RUN echo "chown -R hyperion:hyperion /config" >> /start.sh
 RUN echo "sudo -u hyperion /usr/bin/hyperiond -v --service -u /config" >> /start.sh
 
 RUN chmod 777 /start.sh
