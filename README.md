@@ -30,11 +30,11 @@ docker build the local image
 ```sh
 docker build -t hyperionng --no-cache .
 ```
-either start the container directly
+if you want to run a nightly hyperionng build, run this additional build command to update the local image
 ```sh
-docker run -d -v "$(pwd)/config:/config" --name="hyperionng" --network host hyperionng:latest
+docker build -t hyperionng -f Dockerfile.nightly .
 ```
-or use `docker compose up -d` with the following `docker-compose.yml` file (included in the repo):
+start the container with `docker compose up -d` with the following `docker-compose.yml` file (included in the repo):
 ```sh
 version: '3.3'
 
