@@ -35,7 +35,7 @@ if you want to run a nightly hyperionng build, run this additional build command
 docker build -t hyperionng -f Dockerfile.nightly .
 ```
 start the container with `docker compose up -d` with the following `docker-compose.yml` file (included in the repo):
-```sh
+```yaml
 version: '3.3'
 
 services:
@@ -93,6 +93,40 @@ volumes:
   hyperionng-config:
 
 ```
+
+In both cases, you may want to adapt the "ports" section adding other port mappings for specific cases (e.g. "2100:2100/udp" for Philips Hue in Entertainment mode).
+
+An alternative, especially if you need advanced functions like mDNS and SSDP services, could be running the cointainer in a macvlan network bridged to your local one. The following is an example that exposes the hyperionng container with the 192.168.1.17 IP in a local network 192.168.1.0/24 with the gateway 192.168.1.1, please adapt the configuration to your specific case.
+
+```yaml
+version: '3.3'
+
+services:
+  hyperionng:
+    image: hyperionng:latest
+    container_name: hyperionng
+    volumes:
+      - hyperionng-config:/config
+    networks:
+      mylannet:
+         ipv4_address: 192.168.1.17
+    restart: unless-stopped
+volumes:
+  hyperionng-config:
+# define networks
+networks:
+  mylannet:
+    name: mylannet
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.1
+          ip_range: 192.168.1.64/26
+```
+
 
 If you want to use different UID and GID, you can add a `.env` file in the same folder of your `docker-compose.yml` file:
 
