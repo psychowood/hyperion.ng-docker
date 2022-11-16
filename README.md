@@ -127,6 +127,15 @@ networks:
           ip_range: 192.168.1.64/26
 ```
 
+Moreover, if you want to use some hardware devices (USB. serial, video, and so on), you need to passthrough the correct one adding a devices section in the compose file (the following is jut an example):
+
+```yaml
+devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+      - /dev/video1:/dev/video1
+      - /dev/ttyUSB1:/dev/ttyUSB0
+      - /dev/spidev0.0:/dev/spidev0.0 
+```
 
 If you want to use different UID and GID, you can add a `.env` file in the same folder of your `docker-compose.yml` file:
 
