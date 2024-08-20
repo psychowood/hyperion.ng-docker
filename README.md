@@ -72,7 +72,7 @@ services:
                     mkdir -p /config &&
                     chown ${UID:-1000}:${GID:-1000} /config &&
                     apt-get update &&
-                    apt-get install -y wget gpg sudo &&
+                    apt-get install -y wget gpg sudo libpython3.9 &&
                     wget -qO /tmp/hyperion.pub.key https://apt.hyperion-project.org/hyperion.pub.key &&
                     gpg --dearmor -o - /tmp/hyperion.pub.key > /usr/share/keyrings/hyperion.pub.gpg &&
                     echo \"deb [signed-by=/usr/share/keyrings/hyperion.pub.gpg] https://apt.hyperion-project.org/ bullseye main\" > /etc/apt/sources.list.d/hyperion.list &&
