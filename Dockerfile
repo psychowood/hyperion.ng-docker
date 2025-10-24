@@ -1,12 +1,12 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
-    apt-get install -y wget gpg sudo libpython3.9 && \
+    apt-get install -y wget gpg sudo libpython3.11 && \
     wget -qO /tmp/hyperion.pub.key https://apt.hyperion-project.org/hyperion.pub.key && \
     gpg --dearmor -o /usr/share/keyrings/hyperion.pub.gpg /tmp/hyperion.pub.key && \
-    echo "deb [signed-by=/usr/share/keyrings/hyperion.pub.gpg] https://apt.hyperion-project.org/ bullseye main" > /etc/apt/sources.list.d/hyperion.list && \
-    echo "deb [signed-by=/usr/share/keyrings/hyperion.nightly.pub.gpg] https://nightly.apt.hyperion-project.org/ bullseye main" > /etc/apt/sources.list.d/hyperion.nightly.list.disabled && \
+    echo "deb [signed-by=/usr/share/keyrings/hyperion.pub.gpg] https://apt.hyperion-project.org/ bookworm main" > /etc/apt/sources.list.d/hyperion.list && \
+    echo "deb [signed-by=/usr/share/keyrings/hyperion.nightly.pub.gpg] https://nightly.apt.hyperion-project.org/ bookworm main" > /etc/apt/sources.list.d/hyperion.nightly.list.disabled && \
     apt-get update && \
     apt-get install -y hyperion && \
     apt-get -y --purge autoremove gpg && \
